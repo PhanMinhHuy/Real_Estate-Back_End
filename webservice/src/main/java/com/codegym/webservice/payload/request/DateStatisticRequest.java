@@ -1,15 +1,15 @@
-package com.codegym.dao.DTO;
+package com.codegym.webservice.payload.request;
 
 import java.util.Date;
 
-public class DateStatisticDTO {
+public class DateStatisticRequest {
     private Date startDay;
     private Date endDay;
 
-    public DateStatisticDTO() {
+    public DateStatisticRequest() {
     }
 
-    public DateStatisticDTO(Date startDay, Date endDay) {
+    public DateStatisticRequest(Date startDay, Date endDay) {
         this.startDay = startDay;
         this.endDay = endDay;
     }

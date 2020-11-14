@@ -1,5 +1,6 @@
 package com.codegym.service.serviceImpl;
 
+import com.codegym.dao.model.CustomUserDetails;
 import com.codegym.dao.model.Role;
 import com.codegym.dao.model.User;
 import com.codegym.dao.repository.UserRepository;
@@ -35,7 +36,7 @@ public class UserDetailsServiceimpl implements UserDetailsService {
         for(Role role: roles){
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName().toString()));
         }
-        return UserDetailsImpl.build(user);
+        return CustomUserDetails.build(user);
     }
 }
 

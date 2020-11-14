@@ -11,9 +11,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "comment")
-//@JsonIgnoreProperties({
-//        "replies"
-//})
 public class Comment extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

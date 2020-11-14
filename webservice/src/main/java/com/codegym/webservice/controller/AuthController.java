@@ -7,7 +7,7 @@ import com.codegym.dao.model.Role;
 import com.codegym.dao.model.User;
 import com.codegym.dao.repository.RoleRepository;
 import com.codegym.service.UserService;
-import com.codegym.service.serviceImpl.UserDetailsImpl;
+import com.codegym.dao.model.CustomUserDetails;
 import com.codegym.webservice.payload.response.ApiResponse;
 import com.codegym.webservice.payload.request.SignInRequest;
 import com.codegym.webservice.payload.request.SignUpRequest;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -58,7 +57,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken((UserDetails) authentication.getPrincipal());
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Set<Role> roles = userDetails.getAuthorities().stream()
                 .map(item -> roleRepository.findByRoleName(ERole.valueOf(item.getAuthority())).get())
                 .collect(Collectors.toSet());

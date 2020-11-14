@@ -80,6 +80,15 @@ public class PostSpecification {
         };
     }
 
+
+    public static Specification<Post> hasStatus(Boolean status) {
+        return (root, query, criteriaBuilder) -> {
+            if (status == null)
+                return criteriaBuilder.conjunction();
+            return criteriaBuilder.equal(root.get("status"), status);
+        };
+    }
+
     public static Specification<Post> hasCustomerType(Boolean customerType) {
         return (root, query, criteriaBuilder) -> {
             if (customerType == null)

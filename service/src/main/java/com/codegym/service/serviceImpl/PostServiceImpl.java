@@ -60,6 +60,7 @@ public class PostServiceImpl implements PostService {
                         .and(PostSpecification.hasCustomerType(customerType))
                         .and(PostSpecification.textInAllColumns(keyword, Arrays.asList("title", "content")))
                         .and(PostSpecification.hasDirection(direction))
+                        .and(PostSpecification.hasStatus(true))
                 , pageable);
     }
 

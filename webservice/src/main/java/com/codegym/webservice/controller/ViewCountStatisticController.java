@@ -1,8 +1,8 @@
 package com.codegym.webservice.controller;
 
-import com.codegym.dao.DTO.DateStatisticDTO;
 import com.codegym.dao.model.ViewCountStatistic;
 import com.codegym.service.ViewCountStatisticService;
+import com.codegym.webservice.payload.request.DateStatisticRequest;
 import com.codegym.webservice.payload.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -68,7 +68,7 @@ public class ViewCountStatisticController {
     //-------------------Get List ViewCountStatistic--------------------------------------------------------
     @PostMapping(value = "/listViewCountStatistic")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Object> getListViewCountStatistic(@RequestBody DateStatisticDTO date) {
+    public ResponseEntity<Object> getListViewCountStatistic(@RequestBody DateStatisticRequest date) {
         return new ResponseEntity<>(viewCountStatisticService.getListViewCountStatistic(date.getStartDay(), date.getEndDay()), HttpStatus.OK);
     }
 }

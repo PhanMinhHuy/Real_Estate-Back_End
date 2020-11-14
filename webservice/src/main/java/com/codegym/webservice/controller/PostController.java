@@ -166,10 +166,10 @@ public class PostController {
     }
 
     //-------------------Update post-viewCount--------------------------------------------------------
-    @PatchMapping(value = "/update-post-viewCount/{id}")
-    public ResponseEntity<Object> updatePostViewCount(@PathVariable Long id, @Valid @RequestBody Post post) {
-        post.setId(id);
-        if (postService.findById(id) == null) {
+    @GetMapping(value = "/update-post-viewCount/{id}")
+    public ResponseEntity<Object> updatePostViewCount(@PathVariable Long id) {
+        Post post = postService.findById(id);
+        if (post == null) {
             return new ResponseEntity<>(new ApiResponse(false, "Can not find this post!"), HttpStatus.NOT_FOUND);
         }
         postService.updatePostViewCount(post);
