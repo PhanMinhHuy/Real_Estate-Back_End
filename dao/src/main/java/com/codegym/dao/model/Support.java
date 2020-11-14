@@ -26,17 +26,20 @@ public class Support extends DateAudit {
 
     @Column(columnDefinition = "TINYINT(1) default 1")
     private boolean status = true;
+    @Column(columnDefinition = "TINYINT(1) default 0")
+    private boolean checked = false;
 
     public Support() {
     }
 
-    public Support(String name, String email, String phoneNumber, Reason reason, String content, boolean status) {
+    public Support(String name, String email, String phoneNumber, Reason reason, String content, boolean status, boolean checked) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.reason = reason;
         this.content = content;
         this.status = status;
+        this.checked = checked;
     }
 
     public Long getId() {
@@ -93,5 +96,13 @@ public class Support extends DateAudit {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

@@ -57,6 +57,10 @@ public class RegionController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Object> createRegion(@RequestBody Region region) {
+        boolean success = regionService.save(region);
+        if (!success) {
+            return new ResponseEntity<>(new ApiResponse(false, "Cannot save region!"), HttpStatus.BAD_REQUEST);
+        }
         regionService.save(region);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -69,6 +73,10 @@ public class RegionController {
     @PatchMapping(value = "/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Object> updateRegion(@PathVariable Long id, @RequestBody Region region) {
+        boolean success = regionService.save(region);
+        if (!success) {
+            return new ResponseEntity<>(new ApiResponse(false, "Cannot save region!"), HttpStatus.BAD_REQUEST);
+        }
         region.setId(id);
         if (regionService.findById(id) == null) {
             return new ResponseEntity<>(new ApiResponse(false, "Can not find this region!"), HttpStatus.NOT_FOUND);

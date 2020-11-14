@@ -1,5 +1,6 @@
 package com.codegym.service.serviceImpl;
 
+import com.codegym.dao.model.Category;
 import com.codegym.dao.model.PostType;
 import com.codegym.dao.repository.PostTypeRepository;
 import com.codegym.service.PostTypeService;
@@ -35,12 +36,22 @@ public class PostTypeServiceImpl implements PostTypeService {
     }
 
     @Override
-    public void save(PostType postType) {
+    public boolean save(PostType postType) {
+        PostType availablePostType = this.findByName(postType.getName());
+        if (availablePostType != null) {
+            return false;
+        }
         postTypeRepository.save(postType);
+        return true;
     }
 
     @Override
     public void deleteById(Long id) {
         postTypeRepository.deleteById(id);
+    }
+
+    @Override
+    public PostType findByName(String inputName) {
+        return postTypeRepository.findByName(inputName);
     }
 }

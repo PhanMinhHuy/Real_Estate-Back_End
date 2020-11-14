@@ -15,7 +15,10 @@ public interface PostTypeService {
     PostType findById(Long id);
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void save(PostType postType);
+    boolean save(PostType postType);
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteById(Long id);
+
+    PostType findByName(String inputName);
 }

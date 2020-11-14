@@ -13,8 +13,12 @@ public interface RegionService {
     Page<Region> findAll(Pageable pageable);
 
     Region findById(Long id);
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void save(Region region);
+    boolean save(Region region);
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteById(Long id);
+
+    Region findByName(String inputName);
 }

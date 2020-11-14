@@ -57,6 +57,10 @@ public class PostTypeController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Object> createPostType(@RequestBody PostType postType) {
+        boolean success = postTypeService.save(postType);
+        if (!success) {
+            return new ResponseEntity<>(new ApiResponse(false, "Cannot save post type!"), HttpStatus.BAD_REQUEST);
+        }
         postTypeService.save(postType);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -69,6 +73,10 @@ public class PostTypeController {
     @PatchMapping(value = "/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Object> updatePostType(@PathVariable Long id, @RequestBody PostType postType) {
+        boolean success = postTypeService.save(postType);
+        if (!success) {
+            return new ResponseEntity<>(new ApiResponse(false, "Cannot save post type!"), HttpStatus.BAD_REQUEST);
+        }
         postType.setId(id);
         if (postTypeService.findById(id) == null) {
             return new ResponseEntity<>(new ApiResponse(false, "Can not find this post type!"), HttpStatus.NOT_FOUND);

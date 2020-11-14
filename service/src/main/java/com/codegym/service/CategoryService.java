@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CategoryService {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void save(Category category);
+    boolean save(Category category);
 
     List<Category> findAll();
 
@@ -21,4 +21,6 @@ public interface CategoryService {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteById(Long id);
+
+    Category findByName(String inputName);
 }

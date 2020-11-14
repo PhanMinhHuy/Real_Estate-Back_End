@@ -45,7 +45,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> findRepositoryById(@PathVariable Long id) {
+    public ResponseEntity<Object> findCategoryById(@PathVariable Long id) {
         Category category = categoryService.findById(id);
         if (category == null) {
             return new ResponseEntity<>(new ApiResponse(false, "Can not find this category!"), HttpStatus.NOT_FOUND);
@@ -57,7 +57,10 @@ public class CategoryController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Object> createCategory(@RequestBody Category category) {
-        categoryService.save(category);
+        boolean success = categoryService.save(category);
+        if (!success) {
+            return new ResponseEntity<>(new ApiResponse(false, "Cannot save category!"), HttpStatus.BAD_REQUEST);
+        }
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -69,6 +72,10 @@ public class CategoryController {
     @PatchMapping(value = "/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Object> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+        boolean success = categoryService.save(category);
+        if (!success) {
+            return new ResponseEntity<>(new ApiResponse(false, "Cannot save category!"), HttpStatus.BAD_REQUEST);
+        }
         category.setId(id);
         if (categoryService.findById(id) == null) {
             return new ResponseEntity<>(new ApiResponse(false, "Can not find this category!"), HttpStatus.NOT_FOUND);

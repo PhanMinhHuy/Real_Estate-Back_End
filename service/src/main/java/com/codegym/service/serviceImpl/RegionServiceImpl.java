@@ -1,5 +1,6 @@
 package com.codegym.service.serviceImpl;
 
+import com.codegym.dao.model.PostType;
 import com.codegym.dao.model.Region;
 import com.codegym.dao.repository.RegionRepository;
 import com.codegym.service.RegionService;
@@ -35,12 +36,22 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public void save(Region region) {
+    public boolean save(Region region) {
+        Region availableRegion = this.findByName(region.getName());
+        if (availableRegion != null) {
+            return false;
+        }
         regionRepository.save(region);
+        return true;
     }
 
     @Override
     public void deleteById(Long id) {
         regionRepository.deleteById(id);
+    }
+
+    @Override
+    public Region findByName(String inputName) {
+        return regionRepository.findByName(inputName);
     }
 }

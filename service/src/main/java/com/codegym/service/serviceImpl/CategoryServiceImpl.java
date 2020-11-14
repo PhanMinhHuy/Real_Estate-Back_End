@@ -21,8 +21,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void save(Category category) {
+    public boolean save(Category category) {
+        Category availableCategory = this.findByName(category.getName());
+        if (availableCategory != null) {
+            return false;
+        }
         categoryRepository.save(category);
+        return true;
     }
 
     @Override
@@ -43,5 +48,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public Category findByName(String inputName) {
+        return categoryRepository.findByName(inputName);
     }
 }
